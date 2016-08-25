@@ -16,17 +16,75 @@
         <div class="col-md-12">
             <h4>${formDto.newly?'添加':'编辑'} 实例</h4>
             <form:form commandName="formDto" cssClass="form-horizontal">
-                <div class="form-group">
-                    <label for="instanceName" class="col-sm-2 control-label">实例名称</label>
-
-                    <div class="col-sm-8">
-                        <form:input path="instanceName" id="instanceName" cssClass="form-control"
-                                    placeholder="请输入实例名称" required="true" maxlength="255"/>
-                        <p class="help-block">对该监控的称呼, 名称必须唯一</p>
-                        <form:errors path="instanceName" cssClass="text-danger"/>
+                <div>
+				  <ul class="nav nav-tabs" role="tablist">
+				    <li role="presentation" class="active"><a href="#taburl" aria-controls="home" role="tab" data-toggle="tab">URL</a></li>
+				    <li role="presentation"><a href="#tabdatabase" aria-controls="profile" role="tab" data-toggle="tab">DATABASE</a></li>
+				    <li role="presentation"><a href="#tabftp" aria-controls="messages" role="tab" data-toggle="tab">FTP</a></li>
+				  </ul>
+				
+			  <!-- Tab panes -->
+			  <div class="tab-content" style="padding-top: 50px">
+			   <div role="tabpanel" class="tab-pane " id="tabdatabase">
+			   
+			    <div class="form-group">
+		                 <label for="monitorUrl" class="col-sm-2 control-label">数据库类型</label>
+	                    <div class="col-sm-8">
+	                       <select id="frequency" name="frequency" class="form-control">
+                            <option value="FIVE">mysql5.X</option>
+                              <option value="FIVE">sqlserver2005</option>
+                              <option value="FIVE">oracle11</option>
+                        </select>
+	                        <p class="help-block"></p>
+	                        <form:errors path="frequency" cssClass="text-danger"/>
+	                    </div>
                     </div>
-                </div>
-                <div class="form-group">
+			   
+				   	<div class="form-group">
+	                    <label for="monitorUrl" class="col-sm-2 control-label">数据库连接字符串</label>
+	                    <div class="col-sm-8">
+	                        <form:input path="monitorUrl" id="monitorUrl" cssClass="form-control"
+	                                    placeholder="" maxlength="255" required="true"/>
+	                        <p class="help-block">例如：jdbc:mysql://120.24.41.213:3306/heart_beat?</p>
+	                        <form:errors path="monitorUrl" cssClass="text-danger"/>
+	                    </div>
+	                </div>
+	                <div class="form-group">
+	                    <label for="monitorUrl" class="col-sm-2 control-label">数据库用户名</label>
+	                    <div class="col-sm-8">
+	                        <form:input path="monitorUrl" id="monitorUrl" cssClass="form-control"
+	                                    placeholder="root" maxlength="255" required="true"/>
+	                        <p class="help-block">例如：mysql:root</p>
+	                        <form:errors path="monitorUrl" cssClass="text-danger"/>
+	                    </div>
+	                </div>
+	                
+	                <div class="form-group">
+	                    <label for="monitorUrl" class="col-sm-2 control-label">数据库密码</label>
+	                    <div class="col-sm-8">
+	                        <form:input path="monitorUrl" id="monitorUrl" cssClass="form-control"
+	                                    placeholder="" maxlength="255" required="true"/>
+	                        <p class="help-block"></p>
+	                        <form:errors path="monitorUrl" cssClass="text-danger"/>
+	                    </div>
+	                </div>
+	                
+	                 <div class="form-group">
+	                    <label for="monitorUrl" class="col-sm-2 control-label">测试sql</label>
+	                    <div class="col-sm-8">
+	                        <form:input path="monitorUrl" id="monitorUrl" cssClass="form-control"
+	                                    placeholder="select 1 from dual" maxlength="255" required="true"/>
+	                        <p class="help-block">用来测试数据库是否正常的sql语句</p>
+	                        <form:errors path="monitorUrl" cssClass="text-danger"/>
+	                    </div>
+	                </div>
+	                
+	               
+			   </div>
+			  
+			  
+			    <div role="tabpanel" class="tab-pane active" id="home">
+			    <div class="form-group">
                     <label for="monitorUrl" class="col-sm-2 control-label">监控URL</label>
 
                     <div class="col-sm-8">
@@ -143,7 +201,23 @@
                         <form:errors path="contentType" cssClass="text-danger"/>
                     </div>
                 </div>
+			    </div>
+			  </div>
+			
+			</div>
+			                
+                
+                <div class="form-group">
+                    <label for="instanceName" class="col-sm-2 control-label">实例名称</label>
 
+                    <div class="col-sm-8">
+                        <form:input path="instanceName" id="instanceName" cssClass="form-control"
+                                    placeholder="请输入实例名称" required="true" maxlength="255"/>
+                        <p class="help-block">对该监控的称呼, 名称必须唯一</p>
+                        <form:errors path="instanceName" cssClass="text-danger"/>
+                    </div>
+                </div>
+                
                 <div class="form-group">
                     <label for="monitorUrl" class="col-sm-2 control-label">频率</label>
 
