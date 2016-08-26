@@ -35,13 +35,18 @@ public class ApplicationInstanceServiceImpl implements ApplicationInstanceServic
         ApplicationInstanceFormDtoPersister persister = new ApplicationInstanceFormDtoPersister(formDto);
         persister.persist();
     }
-
+    /***
+     * 使监控实例生效
+     */
     @Override
     public boolean enableApplicationInstance(String guid) {
         ApplicationInstanceEnabler instanceEnabler = new ApplicationInstanceEnabler(guid);
         return instanceEnabler.enable();
     }
-
+    
+    /***
+     * job 具体监控操作 ，发送http请求
+     */
     @Override
     public void executePerHeartBeatByInstanceGuid(String instanceGuid) {
         PerHeartBeatExecutor perHeartBeatExecutor = new PerHeartBeatExecutor(instanceGuid);

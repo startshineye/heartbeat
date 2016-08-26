@@ -1,15 +1,17 @@
 package net.iegreen.domain.dto.application;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.iegreen.domain.application.ApplicationInstance;
+import net.iegreen.domain.application.DatabaseType;
 import net.iegreen.domain.application.HeartBeatFrequency;
+import net.iegreen.domain.application.InstanceType;
 import net.iegreen.domain.application.MonitorUrlRequestMethod;
 import net.iegreen.domain.dto.AbstractDto;
 import net.iegreen.domain.dto.user.WeixinUserDto;
 import net.iegreen.domain.user.User;
 import net.iegreen.infrastructure.DateUtils;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -46,7 +48,7 @@ public class ApplicationInstanceDto extends AbstractDto {
      * 心跳检测频率, 默认30秒
      */
     protected HeartBeatFrequency frequency = HeartBeatFrequency.THIRTY;
-
+    
     /**
      * 若出现测试正常或不正常时提醒的邮件地址
      * 若有多个请用英文分号(;)分隔
@@ -59,7 +61,7 @@ public class ApplicationInstanceDto extends AbstractDto {
      * 当启用该监听任务时, 将会有唯一对应的jobName
      */
     protected String jobName;
-
+    
     /**
      * 备注信息
      */
@@ -71,7 +73,23 @@ public class ApplicationInstanceDto extends AbstractDto {
     protected boolean privateInstance;
 
     protected int continueFailedTimes = 2;
-
+    
+    protected DatabaseType databaseType = DatabaseType.MYSQL;
+    
+    protected InstanceType instanceType = InstanceType.URL;
+    
+    protected String username;
+    
+    protected String password;
+    
+    
+    protected String testsql;
+    
+    protected String sqlurl;
+    
+    protected String databaseurl;
+    
+    protected String ftpurl;
 
     protected List<WeixinUserDto> weixinUserDtos = new ArrayList<>();
 
@@ -102,6 +120,16 @@ public class ApplicationInstanceDto extends AbstractDto {
         this.contentType = instance.instanceURL().contentType();
         this.weixinUserDtos = WeixinUserDto.toDtos(instance.weixinUsers());
         this.privateInstance = instance.privateInstance();
+        
+        
+        this.databaseType = instance.databaseType();
+        this.instanceType = instance.instanceType();
+        this.username = instance.username();
+        this.password = instance.password();
+        this.testsql = instance.testsql();
+        this.sqlurl = instance.sqlurl();
+        this.databaseurl = instance.databaseurl();
+        this.ftpurl = instance.ftpurl();
     }
 
 
@@ -209,7 +237,15 @@ public class ApplicationInstanceDto extends AbstractDto {
         this.frequency = frequency;
     }
 
-    public String getEmail() {
+    public DatabaseType getDatabaseType() {
+		return databaseType;
+	}
+
+	public void setDatabaseType(DatabaseType databaseType) {
+		this.databaseType = databaseType;
+	}
+
+	public String getEmail() {
         return email;
     }
 
@@ -233,11 +269,66 @@ public class ApplicationInstanceDto extends AbstractDto {
         this.remark = remark;
     }
 
-    public static List<ApplicationInstanceDto> toDtos(List<ApplicationInstance> instances) {
-        List<ApplicationInstanceDto> dtos = new ArrayList<>(instances.size());
-        for (ApplicationInstance instance : instances) {
-            dtos.add(new ApplicationInstanceDto(instance));
-        }
-        return dtos;
-    }
+	public InstanceType getInstanceType() {
+		return instanceType;
+	}
+
+	public void setInstanceType(InstanceType instanceType) {
+		this.instanceType = instanceType;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getTestsql() {
+		return testsql;
+	}
+
+	public void setTestsql(String testsql) {
+		this.testsql = testsql;
+	}
+
+	public String getSqlurl() {
+		return sqlurl;
+	}
+
+	public void setSqlurl(String sqlurl) {
+		this.sqlurl = sqlurl;
+	}
+
+	public String getDatabaseurl() {
+		return databaseurl;
+	}
+
+	public void setDatabaseurl(String databaseurl) {
+		this.databaseurl = databaseurl;
+	}
+
+	public String getFtpurl() {
+		return ftpurl;
+	}
+
+	public void setFtpurl(String ftpurl) {
+		this.ftpurl = ftpurl;
+	}
+	public static List<ApplicationInstanceDto> toDtos(List<ApplicationInstance> instances) {
+	        List<ApplicationInstanceDto> dtos = new ArrayList<>(instances.size());
+	        for (ApplicationInstance instance : instances) {
+	            dtos.add(new ApplicationInstanceDto(instance));
+	        }
+	        return dtos;
+	}
 }

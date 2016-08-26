@@ -46,7 +46,11 @@ public class ApplicationInstanceEnabler {
 
         return true;
     }
-
+    /***
+     * 将任务加入调度中心
+     * @param instance
+     * @return
+     */
     private boolean startupMonitoringJob(ApplicationInstance instance) {
         final String jobName = getAndSetJobName(instance);
 

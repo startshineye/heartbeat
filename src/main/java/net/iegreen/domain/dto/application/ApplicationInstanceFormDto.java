@@ -2,6 +2,7 @@ package net.iegreen.domain.dto.application;
 
 import net.iegreen.domain.application.ApplicationInstance;
 import net.iegreen.domain.application.ApplicationInstanceURL;
+import net.iegreen.domain.application.DatabaseType;
 import net.iegreen.domain.application.HeartBeatFrequency;
 import net.iegreen.domain.application.InstanceMonitorURLParameter;
 import net.iegreen.infrastructure.HttpClientHandler;
@@ -68,7 +69,10 @@ public class ApplicationInstanceFormDto extends ApplicationInstanceDto {
         return HeartBeatFrequency.values();
     }
 
-
+    public DatabaseType[] getDatabaseTypes() {
+        return DatabaseType.values();
+    }
+    
     public List<ContentType> getContentTypes() {
         return HttpClientHandler.CONTENT_TYPES;
     }
@@ -84,6 +88,14 @@ public class ApplicationInstanceFormDto extends ApplicationInstanceDto {
                 .maxConnectionSeconds(maxConnectionSeconds)
                 .email(email)
                 .frequency(frequency)
-                .remark(remark);
+                .remark(remark)
+                .password(password)
+                .username(username)
+                .databaseType(databaseType)
+                .instanceType(instanceType)
+                .testsql(testsql)
+                .sqlurl(sqlurl)
+                .databaseurl(databaseurl)
+                .ftpurl(ftpurl);
     }
 }

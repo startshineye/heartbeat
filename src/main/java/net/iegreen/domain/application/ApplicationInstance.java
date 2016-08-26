@@ -65,8 +65,42 @@ public class ApplicationInstance extends AbstractDomain {
      */
     @Column(name = "job_name")
     private String jobName;
+    
+    /***
+     * 数据库类型
+     */
+    @Column(name = "databasetype")
+    @Enumerated(value = EnumType.STRING)
+    private DatabaseType databaseType = DatabaseType.MYSQL;
+    
+    /***
+     * 实例类型
+     */
+    @Column(name = "instanceType")
+    @Enumerated(value = EnumType.STRING)
+    private InstanceType instanceType = InstanceType.URL;
 
-    /**
+    
+    @Column(name = "username_")
+    private String username;
+    
+    @Column(name = "password_")
+    private String password;
+    
+    
+    @Column(name = "testsql")
+    private String testsql;
+    
+    @Column(name = "sqlurl")
+    private String sqlurl;
+    
+    @Column(name = "databaseurl")
+    private String databaseurl;
+    
+    @Column(name = "ftpurl")
+    private String ftpurl;
+    
+	/**
      * 备注信息
      */
     @Column(name = "remark")
@@ -232,4 +266,89 @@ public class ApplicationInstance extends AbstractDomain {
         this.remark = remark;
         return this;
     }
+    
+    public DatabaseType  databaseType(){
+    	return databaseType;
+    }
+    
+    public ApplicationInstance  databaseType(DatabaseType databaseType){
+    	this.databaseType = databaseType;
+    	return this;
+    }
+    
+    public InstanceType  instanceType(){
+    	return instanceType;
+    }
+    
+    public ApplicationInstance  instanceType(InstanceType instanceType){
+    	this.instanceType = instanceType;
+    	return this;
+    }
+
+    public String username() {
+		return username;
+	}
+
+
+	public ApplicationInstance username(String username) {
+		this.username = username;
+		return this;
+	}
+
+
+	public String password() {
+		return password;
+	}
+
+
+	public ApplicationInstance password(String password) {
+		this.password = password;
+		return this;
+	}
+
+
+	public String testsql() {
+		return testsql;
+	}
+
+
+	public ApplicationInstance testsql(String testsql) {
+		this.testsql = testsql;
+		return this;
+	}
+
+
+	public String sqlurl() {
+		return sqlurl;
+	}
+
+
+	public ApplicationInstance sqlurl(String sqlurl) {
+		this.sqlurl = sqlurl;
+		return this;
+	}
+
+
+	public String databaseurl() {
+		return databaseurl;
+		
+	}
+
+
+	public ApplicationInstance databaseurl(String databaseurl) {
+		this.databaseurl = databaseurl;
+		return this;
+	}
+
+
+	public String ftpurl() {
+		return ftpurl;
+	}
+
+
+	public ApplicationInstance ftpurl(String ftpurl) {
+		this.ftpurl = ftpurl;
+		return this;
+	}
+
 }

@@ -11,198 +11,242 @@
     <title>${formDto.newly?'添加':'编辑'} 实例</title>
 </head>
 <body>
+<script>
+$().ready(function() {
+	
+	 $("#instanceType").val("URL");
+	  $("#monitorUrl").attr("required","true").attr("maxlength","225");
+	  
+	  $("#sqlurl").removeAttr("required").removeAttr("maxlength");
+	  $("#username").removeAttr("required").removeAttr("maxlength");
+	  $("#password").removeAttr("required").removeAttr("maxlength");
+	  $("#testsql").removeAttr("required").removeAttr("maxlength");
+	
+	$('.nav-tabs a').click(function (e) {
+		  e.preventDefault();
+		  $(this).tab('show');
+		  if($(this).attr("aria-controls")=='taburl'){
+			  $("#instanceType").val("URL");
+			  $("#monitorUrl").attr("required","true").attr("maxlength","225");
+			  
+			  $("#sqlurl").removeAttr("required").removeAttr("maxlength");
+			  $("#username").removeAttr("required").removeAttr("maxlength");
+			  $("#password").removeAttr("required").removeAttr("maxlength");
+			  $("#testsql").removeAttr("required").removeAttr("maxlength");
+		  }
+		  else if($(this).attr("aria-controls")=='tabdatabase'){
+			  $("#instanceType").val("DATABASE");
+ 			  $("#sqlurl").attr("required","true").attr("maxlength","225");
+ 			  $("#username").attr("required","true").attr("maxlength","225");
+ 			  $("#password").attr("required","true").attr("maxlength","225");
+ 			  $("#testsql").attr("required","true").attr("maxlength","225");
+			  
+			  $("#monitorUrl").removeAttr("required").removeAttr("maxlength");
+		  }
+		  
+		}) 
+});
+</script>
 <div>
     <div class="row">
         <div class="col-md-12">
             <h4>${formDto.newly?'添加':'编辑'} 实例</h4>
             <form:form commandName="formDto" cssClass="form-horizontal">
+                <form:hidden path="instanceType" id="instanceType"  />
+               
                 <div>
-				  <ul class="nav nav-tabs" role="tablist">
-				    <li role="presentation" class="active"><a href="#taburl" aria-controls="home" role="tab" data-toggle="tab">URL</a></li>
-				    <li role="presentation"><a href="#tabdatabase" aria-controls="profile" role="tab" data-toggle="tab">DATABASE</a></li>
-				    <li role="presentation"><a href="#tabftp" aria-controls="messages" role="tab" data-toggle="tab">FTP</a></li>
+				   <ul class="nav nav-tabs" role="tablist">
+				    <li role="presentation" class="active"><a href="#taburl" aria-controls="taburl" role="tab" data-toggle="tab">URL</a></li>
+				    <li role="presentation"><a href="#tabdatabase" aria-controls="tabdatabase" role="tab" data-toggle="tab">DATABASE</a></li>
+				    <li role="presentation"><a href="#tabftp" aria-controls="tabftp" role="tab" data-toggle="tab">FTP</a></li>
 				  </ul>
 				
-			  <!-- Tab panes -->
-			  <div class="tab-content" style="padding-top: 50px">
-			   <div role="tabpanel" class="tab-pane " id="tabdatabase">
-			   
-			    <div class="form-group">
-		                 <label for="monitorUrl" class="col-sm-2 control-label">数据库类型</label>
-	                    <div class="col-sm-8">
-	                       <select id="frequency" name="frequency" class="form-control">
-                            <option value="FIVE">mysql5.X</option>
-                              <option value="FIVE">sqlserver2005</option>
-                              <option value="FIVE">oracle11</option>
-                        </select>
-	                        <p class="help-block"></p>
-	                        <form:errors path="frequency" cssClass="text-danger"/>
-	                    </div>
-                    </div>
-			   
-				   	<div class="form-group">
-	                    <label for="monitorUrl" class="col-sm-2 control-label">数据库连接字符串</label>
-	                    <div class="col-sm-8">
-	                        <form:input path="monitorUrl" id="monitorUrl" cssClass="form-control"
-	                                    placeholder="" maxlength="255" required="true"/>
-	                        <p class="help-block">例如：jdbc:mysql://120.24.41.213:3306/heart_beat?</p>
-	                        <form:errors path="monitorUrl" cssClass="text-danger"/>
-	                    </div>
-	                </div>
-	                <div class="form-group">
-	                    <label for="monitorUrl" class="col-sm-2 control-label">数据库用户名</label>
-	                    <div class="col-sm-8">
-	                        <form:input path="monitorUrl" id="monitorUrl" cssClass="form-control"
-	                                    placeholder="root" maxlength="255" required="true"/>
-	                        <p class="help-block">例如：mysql:root</p>
-	                        <form:errors path="monitorUrl" cssClass="text-danger"/>
-	                    </div>
-	                </div>
-	                
-	                <div class="form-group">
-	                    <label for="monitorUrl" class="col-sm-2 control-label">数据库密码</label>
-	                    <div class="col-sm-8">
-	                        <form:input path="monitorUrl" id="monitorUrl" cssClass="form-control"
-	                                    placeholder="" maxlength="255" required="true"/>
-	                        <p class="help-block"></p>
-	                        <form:errors path="monitorUrl" cssClass="text-danger"/>
-	                    </div>
-	                </div>
-	                
-	                 <div class="form-group">
-	                    <label for="monitorUrl" class="col-sm-2 control-label">测试sql</label>
-	                    <div class="col-sm-8">
-	                        <form:input path="monitorUrl" id="monitorUrl" cssClass="form-control"
-	                                    placeholder="select 1 from dual" maxlength="255" required="true"/>
-	                        <p class="help-block">用来测试数据库是否正常的sql语句</p>
-	                        <form:errors path="monitorUrl" cssClass="text-danger"/>
-	                    </div>
-	                </div>
-	                
-	               
-			   </div>
-			  
-			  
-			    <div role="tabpanel" class="tab-pane active" id="home">
-			    <div class="form-group">
-                    <label for="monitorUrl" class="col-sm-2 control-label">监控URL</label>
+			     <div class="tab-content" style="padding-top: 50px">
+					<div role="tabpanel" class="tab-pane" id="tabdatabase">
+						<div class="form-group">
+							<label for=databaseType class="col-sm-2 control-label">数据库类型</label>
+							<div class="col-sm-8">
+								<form:select path="databaseType" id="databaseType"
+									cssClass="form-control">
+									<form:options items="${formDto.databaseTypes}"
+										itemLabel="name" itemValue="name" />
+								</form:select>
+								<p class="help-block"></p>
+								<form:errors path="frequency" cssClass="text-danger" />
+							</div>
+						</div>
 
-                    <div class="col-sm-8">
-                        <form:input path="monitorUrl" id="monitorUrl" cssClass="form-control"
-                                    placeholder="http://..." maxlength="255" required="true"/>
-                        <p class="help-block">监控URL以 'http' 或 'https' 开头, 如: 'http://andaily.com/test.html'</p>
-                        <form:errors path="monitorUrl" cssClass="text-danger"/>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">请求方式</label>
+						<div class="form-group">
+							<label for="sqlurl" class="col-sm-2 control-label">数据库连接字符串</label>
+							<div class="col-sm-8">
+								<form:input path="sqlurl" id="sqlurl"
+									cssClass="form-control " placeholder="" 
+									 />
+								<p class="help-block">例如：jdbc:mysql://120.24.41.213:3306/heart_beat?</p>
+								<form:errors path="databaseurl" cssClass="text-danger" />
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label for="username" class="col-sm-2 control-label">数据库用户名</label>
+							<div class="col-sm-8">
+								<form:input path="username" id="username"
+									cssClass="form-control" placeholder="root" maxlength="255"
+									required="true" />
+								<p class="help-block">例如：mysql:root</p>
+								<form:errors path="username" cssClass="text-danger" />
+							</div>
+						</div>
 
-                    <div class="col-sm-8">
-                        <label class="toggle-radio">
-                            <input type="radio" name="requestMethod"
-                                   value="GET" ${formDto.requestMethod.get?'checked':''}/> GET
-                        </label>
-                        &nbsp;
-                        <label class="toggle-radio">
-                            <input type="radio" name="requestMethod"
-                                   value="POST" ${formDto.requestMethod.post?'checked':''}/> POST
-                        </label>
+						<div class="form-group">
+							<label for="password" class="col-sm-2 control-label">数据库密码</label>
+							<div class="col-sm-8">
+								<form:input path="password" id="password"
+									cssClass="form-control" placeholder="" maxlength="255"
+									required="true" />
+								<p class="help-block"></p>
+								<form:errors path="password" cssClass="text-danger" />
+							</div>
+						</div>
 
-                        <p class="help-block">指定监控URL的请求方式. 默认: GET</p>
-                        <form:errors path="requestMethod" cssClass="text-danger"/>
-                    </div>
-                </div>
+						<div class="form-group">
+							<label for="testsql" class="col-sm-2 control-label">测试sql</label>
+							<div class="col-sm-8">
+								<form:input path="testsql" id="testsql"
+									cssClass="form-control" placeholder="select 1 from dual"
+									maxlength="255" required="true" />
+								<p class="help-block">用来测试数据库是否正常的sql语句</p>
+								<form:errors path="testsql" cssClass="text-danger" />
+							</div>
+						</div>
+					</div>
+					<!-- end datablase panel -->
 
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">请求参数</label>
+							<div role="tabpanel" class="tab-pane active" id="taburl">
+								<div class="form-group">
+									<label for="monitorUrl" class="col-sm-2 control-label">监控URL</label>
 
-                    <div class="col-sm-8">
-                        <table class="table table-responsive table-condensed">
-                            <thead>
-                            <tr>
-                                <td>参数-Key</td>
-                                <td>参数-Value</td>
-                                <th>&nbsp;</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <c:forEach items="${formDto.urlParameters}" var="p" varStatus="s">
-                                <tr order="${s.index}">
-                                    <td class="col-xs-3">
-                                        <form:input path="urlParameters[${s.index}].key"
-                                                    cssClass="form-control input-sm" maxlength="20"
-                                                    placeholder="请求参数 Key"/></td>
-                                    <td class="col-xs-6">
-                                        <div class="input-group">
-                                            <input type="text" name="urlParameters[${s.index}].value"
-                                                   value="${p.value}"
-                                                   class="form-control input-sm value" ${p.randomValue?'readonly':''}
-                                                   maxlength="255" placeholder="请求参数 Value"/>
-                                        <span class="input-group-addon input-sm">
-                                            <input type="checkbox" value="true" class="random"
-                                                   name="urlParameters[${s.index}].randomValue" ${p.randomValue?'checked':''}/> 随机值
-                                        </span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <c:set var="hiddenStyle"
-                                               value="${(s.last and formDto.urlParametersSize > 0)?'':'hidden'}"/>
-                                        <a href="javascript:void(0);" class="addParam ${hiddenStyle}"
-                                           title="添加"><em
-                                                class="fui-plus-circle"></em></a>
-                                        <a href="javascript:void(0);" class="deleteParam ${hiddenStyle}"
-                                           title="删除"><em
-                                                class="fui-cross-circle"></em></a>
-                                    </td>
-                                </tr>
-                            </c:forEach>
-                            <c:if test="${empty formDto.urlParameters}">
-                                <tr order="0">
-                                    <td class="col-xs-3"><form:input path="urlParameters[0].key"
-                                                                     cssClass="form-control input-sm" maxlength="20"
-                                                                     placeholder="参数 Key"/></td>
-                                    <td class="col-xs-6">
-                                        <div class="input-group">
-                                            <form:input path="urlParameters[0].value" maxlength="255"
-                                                        cssClass="form-control input-sm value"
-                                                        placeholder="参数 Value"/>
-                                        <span class="input-group-addon input-sm">
-                                            <input type="checkbox" value="true" name="urlParameters[0].randomValue"
-                                                   class="random"/> 随机值
-                                        </span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <a href="javascript:void(0);" class="addParam" title="添加"><em
-                                                class="fui-plus-circle"></em></a>
-                                        <a href="javascript:void(0);" class="deleteParam hidden" title="删除"><em
-                                                class="fui-cross-circle"></em></a>
-                                    </td>
-                                </tr>
-                            </c:if>
-                            </tbody>
-                        </table>
+									<div class="col-sm-8">
+										<form:input path="monitorUrl" id="monitorUrl"
+											cssClass="form-control" placeholder="http://..."
+											maxlength="255" required="true" />
+										<p class="help-block">监控URL以 'http' 或 'https' 开头, 如:
+											'http://andaily.com/test.html'</p>
+										<form:errors path="monitorUrl" cssClass="text-danger" />
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">请求方式</label>
 
-                        <p class="help-block">指定监控URL时的请求参数, 允许设置参数值为随机数.
-                            (可选)</p>
-                        <form:errors path="urlParameters" cssClass="text-danger"/>
-                    </div>
-                </div>
+									<div class="col-sm-8">
+										<label class="toggle-radio"> <input type="radio"
+											name="requestMethod" value="GET"
+											${formDto.requestMethod.get?'checked':''} /> GET
+										</label> &nbsp; <label class="toggle-radio"> <input
+											type="radio" name="requestMethod" value="POST"
+											${formDto.requestMethod.post?'checked':''} /> POST
+										</label>
 
-                <div class="form-group">
-                    <label for="contentType" class="col-sm-2 control-label">ContentType</label>
+										<p class="help-block">指定监控URL的请求方式. 默认: GET</p>
+										<form:errors path="requestMethod" cssClass="text-danger" />
+									</div>
+								</div>
 
-                    <div class="col-sm-8">
-                        <form:select path="contentType" id="contentType" cssClass="form-control">
-                            <form:option value="">无</form:option>
-                            <form:options items="${formDto.contentTypes}" itemLabel="mimeType" itemValue="mimeType"/>
-                        </form:select>
-                        <p class="help-block">指定请求时的 'contentType' 如果监控URL需要, (可选)</p>
-                        <form:errors path="contentType" cssClass="text-danger"/>
-                    </div>
-                </div>
-			    </div>
-			  </div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">请求参数</label>
+
+									<div class="col-sm-8">
+										<table class="table table-responsive table-condensed">
+											<thead>
+												<tr>
+													<td>参数-Key</td>
+													<td>参数-Value</td>
+													<th>&nbsp;</th>
+												</tr>
+											</thead>
+											<tbody>
+												<c:forEach items="${formDto.urlParameters}" var="p"
+													varStatus="s">
+													<tr order="${s.index}">
+														<td class="col-xs-3"><form:input
+																path="urlParameters[${s.index}].key"
+																cssClass="form-control input-sm" maxlength="20"
+																placeholder="请求参数 Key" /></td>
+														<td class="col-xs-6">
+															<div class="input-group">
+																<input type="text"
+																	name="urlParameters[${s.index}].value"
+																	value="${p.value}" class="form-control input-sm value"
+																	${p.randomValue?'readonly':''} maxlength="255"
+																	placeholder="请求参数 Value" /> <span
+																	class="input-group-addon input-sm"> <input
+																	type="checkbox" value="true" class="random"
+																	name="urlParameters[${s.index}].randomValue"
+																	${p.randomValue?'checked':''} /> 随机值
+																</span>
+															</div>
+														</td>
+														<td><c:set var="hiddenStyle"
+																value="${(s.last and formDto.urlParametersSize > 0)?'':'hidden'}" />
+															<a href="javascript:void(0);"
+															class="addParam ${hiddenStyle}" title="添加"><em
+																class="fui-plus-circle"></em></a> <a
+															href="javascript:void(0);"
+															class="deleteParam ${hiddenStyle}" title="删除"><em
+																class="fui-cross-circle"></em></a></td>
+													</tr>
+												</c:forEach>
+												<c:if test="${empty formDto.urlParameters}">
+													<tr order="0">
+														<td class="col-xs-3"><form:input
+																path="urlParameters[0].key"
+																cssClass="form-control input-sm" maxlength="20"
+																placeholder="参数 Key" /></td>
+														<td class="col-xs-6">
+															<div class="input-group">
+																<form:input path="urlParameters[0].value"
+																	maxlength="255" cssClass="form-control input-sm value"
+																	placeholder="参数 Value" />
+																<span class="input-group-addon input-sm"> <input
+																	type="checkbox" value="true"
+																	name="urlParameters[0].randomValue" class="random" />
+																	随机值
+																</span>
+															</div>
+														</td>
+														<td><a href="javascript:void(0);" class="addParam"
+															title="添加"><em class="fui-plus-circle"></em></a> <a
+															href="javascript:void(0);" class="deleteParam hidden"
+															title="删除"><em class="fui-cross-circle"></em></a></td>
+													</tr>
+												</c:if>
+											</tbody>
+										</table>
+
+										<p class="help-block">指定监控URL时的请求参数, 允许设置参数值为随机数. (可选)</p>
+										<form:errors path="urlParameters" cssClass="text-danger" />
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="contentType" class="col-sm-2 control-label">ContentType</label>
+
+									<div class="col-sm-8">
+										<form:select path="contentType" id="contentType"
+											cssClass="form-control">
+											<form:option value="">无</form:option>
+											<form:options items="${formDto.contentTypes}"
+												itemLabel="mimeType" itemValue="mimeType" />
+										</form:select>
+										<p class="help-block">指定请求时的 'contentType' 如果监控URL需要, (可选)</p>
+										<form:errors path="contentType" cssClass="text-danger" />
+									</div>
+								</div>
+							</div>
+							
+							<!-- end taburl -->
+							
+						</div>
 			
 			</div>
 			                
@@ -219,8 +263,7 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="monitorUrl" class="col-sm-2 control-label">频率</label>
-
+                    <label for="frequency" class="col-sm-2 control-label">频率</label>
                     <div class="col-sm-8">
                         <form:select path="frequency" id="frequency" cssClass="form-control">
                             <form:options items="${formDto.frequencies}" itemLabel="seconds" itemValue="value"/>
@@ -327,7 +370,7 @@
         </div>
     </div>
 </div>
-
+   
 <script>
     $(function () {
         new InstanceForm();

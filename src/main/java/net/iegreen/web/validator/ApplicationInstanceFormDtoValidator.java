@@ -1,5 +1,6 @@
 package net.iegreen.web.validator;
 
+import net.iegreen.domain.application.InstanceType;
 import net.iegreen.domain.dto.application.ApplicationInstanceFormDto;
 import net.iegreen.infrastructure.MatchUtils;
 import org.apache.commons.lang.StringUtils;
@@ -66,15 +67,18 @@ public class ApplicationInstanceFormDtoValidator implements Validator {
 
     private void validateMonitorUrl(ApplicationInstanceFormDto formDto, Errors errors) {
         String monitorUrl = formDto.getMonitorUrl();
-        if (StringUtils.isEmpty(monitorUrl)) {
-            errors.rejectValue("monitorUrl", null, "监控URL不能为空");
-            return;
-        }
+        if(formDto.getInstanceType().equals(InstanceType.URL)){
+        	 if (StringUtils.isEmpty(monitorUrl)) {
+                 errors.rejectValue("monitorUrl", null, "监控URL不能为空");
+                 return;
+             }
 
-        String lowerUrl = monitorUrl.toLowerCase();
-        if (!lowerUrl.startsWith(HTTP) && !lowerUrl.startsWith(HTTPS)) {
-            errors.rejectValue("monitorUrl", null, "监控URL只能以 'http://' 或 'https://'开头");
+             String lowerUrl = monitorUrl.toLowerCase();
+             if (!lowerUrl.startsWith(HTTP) && !lowerUrl.startsWith(HTTPS)) {
+                 errors.rejectValue("monitorUrl", null, "监控URL只能以 'http://' 或 'https://'开头");
+             }
         }
+       
 
     }
 

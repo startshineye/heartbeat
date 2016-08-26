@@ -75,3 +75,13 @@ CREATE INDEX instance_id_archived_index ON frequency_monitor_log (instance_id, a
 -- 2016-08-05
 ALTER TABLE application_instance ADD `continue_failed_times` INT(11) DEFAULT 2;
 
+
+-- 2016-08-05
+ALTER TABLE application_instance ADD `databasetype`  VARCHAR(255);
+ALTER TABLE application_instance ADD `instancetype`  VARCHAR(255);
+ALTER TABLE application_instance ADD `username_`  VARCHAR(255);
+ALTER TABLE application_instance ADD `password_`  VARCHAR(255);
+ALTER TABLE application_instance ADD `testsql`  VARCHAR(255);
+ALTER TABLE application_instance ADD `sqlurl`  VARCHAR(255);
+ALTER TABLE application_instance ADD `databaseurl`  VARCHAR(255);
+ALTER TABLE application_instance ADD `ftpurl`  VARCHAR(255);
