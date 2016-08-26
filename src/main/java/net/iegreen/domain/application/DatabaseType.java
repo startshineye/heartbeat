@@ -2,7 +2,7 @@ package net.iegreen.domain.application;
 
 public enum DatabaseType {
 		
-		MYSQL("MYSQL","org.gjt.mm.mysql.Driver"),
+		MYSQL("MYSQL","com.mysql.jdbc.Driver"),
 		
 		SQLSERVER("SQLSERVER","com.microsoft.jdbc.sqlserver.SQLServerDriver");
 		

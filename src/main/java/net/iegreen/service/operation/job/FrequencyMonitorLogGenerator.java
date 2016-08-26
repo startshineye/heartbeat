@@ -26,7 +26,7 @@ public class FrequencyMonitorLogGenerator {
 
     public FrequencyMonitorLog generate() {
         HttpClientHandler httpClientHandler = createHttpClientHandler();
-        LOGGER.debug("Send Request to URL: {} use HttpClientHandler: {}", monitorUrl(), httpClientHandler);
+        LOGGER.info("Send Request to URL: {} use HttpClientHandler: {}", monitorUrl(), httpClientHandler);
 
         final FrequencyMonitorLog monitorLog = httpClientHandler.handleAndGenerateFrequencyMonitorLog();
         monitorLog.instance(instance);

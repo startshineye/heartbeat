@@ -25,11 +25,11 @@ public class MonitoringInstanceJob implements Job {
     @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
         final JobKey key = context.getJobDetail().getKey();
-        LOGGER.debug("*****  Start execute Job [{}]", key);
+        LOGGER.info("*****  Start execute Job [{}]", key);
 
         final String instanceGuid = context.getMergedJobDataMap().getString(APPLICATION_INSTANCE_GUID);
         instanceService.executePerHeartBeatByInstanceGuid(instanceGuid);
 
-        LOGGER.debug("&&&&&  End execute Job [{}]", key);
+        LOGGER.info("&&&&&  End execute Job [{}]", key);
     }
 }

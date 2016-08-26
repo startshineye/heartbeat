@@ -1,11 +1,18 @@
 package net.iegreen.service.impl;
 
+import net.iegreen.domain.application.ApplicationInstance;
+import net.iegreen.domain.application.ApplicationInstanceRepository;
+import net.iegreen.domain.application.DatabaseType;
 import net.iegreen.domain.dto.application.ApplicationInstanceFormDto;
 import net.iegreen.domain.dto.application.ApplicationInstanceListDto;
 import net.iegreen.domain.dto.application.InstanceStatisticsDto;
+import net.iegreen.domain.shared.BeanProvider;
 import net.iegreen.service.ApplicationInstanceService;
 import net.iegreen.service.operation.instance.*;
+import net.iegreen.service.operation.job.DatabaseHeartBeatExecutor;
 import net.iegreen.service.operation.job.PerHeartBeatExecutor;
+import net.iegreen.service.operation.job.PerHeartBeatExecutorTemplate;
+
 import org.springframework.stereotype.Service;
 
 /**
@@ -16,7 +23,7 @@ import org.springframework.stereotype.Service;
 @Service("applicationInstanceService")
 public class ApplicationInstanceServiceImpl implements ApplicationInstanceService {
 
-
+	 private  ApplicationInstanceRepository instanceRepository = BeanProvider.getBean(ApplicationInstanceRepository.class);
 
     @Override
     public void loadApplicationInstanceListDto(ApplicationInstanceListDto listDto) {
@@ -49,7 +56,12 @@ public class ApplicationInstanceServiceImpl implements ApplicationInstanceServic
      */
     @Override
     public void executePerHeartBeatByInstanceGuid(String instanceGuid) {
-        PerHeartBeatExecutor perHeartBeatExecutor = new PerHeartBeatExecutor(instanceGuid);
+    	final ApplicationInstance instance = instanceRepository.findByGuid(instanceGuid, ApplicationInstance.class);
+    	  
+    	PerHeartBeatExecutorTemplate perHeartBeatExecutor = new PerHeartBeatExecutor(instanceGuid);
+    	if(instance.databaseType()==DatabaseType.MYSQL ){
+    		perHeartBeatExecutor = new DatabaseHeartBeatExecutor(instanceGuid);
+    	}
         perHeartBeatExecutor.execute();
     }
 

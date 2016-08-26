@@ -19,7 +19,10 @@ public interface ApplicationInstanceService {
     void persistApplicationInstance(ApplicationInstanceFormDto formDto);
 
     boolean enableApplicationInstance(String guid);
-
+    /***
+     * job执行动作
+     * @param instanceGuid
+     */
     void executePerHeartBeatByInstanceGuid(String instanceGuid);
 
     boolean stopMonitoringApplicationInstance(String guid);
