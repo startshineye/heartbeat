@@ -33,6 +33,7 @@ public class DatabaseHeartBeatExecutor extends PerHeartBeatExecutorTemplate{
 				monitorLog.costTime(System.currentTimeMillis()-start).normal(false)
                 .remark(e.getClass().getSimpleName() + ": " + e.getMessage());
 			}
+		monitorLog.instance(instance);
 		 return monitorLog;
 	}
    

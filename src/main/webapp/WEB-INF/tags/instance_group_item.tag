@@ -36,18 +36,31 @@
             </sec:authorize>
         </c:if>
     </div>
-
+    <c:set var="URL" value="<%=net.iegreen.domain.application.InstanceType.URL%>"/>
+    <c:set var="DATABASE" value="<%=net.iegreen.domain.application.InstanceType.DATABASE%>"/>
+   <c:set var="FTP" value="<%=net.iegreen.domain.application.InstanceType.FTP%>"/>
+  
     <h4 class="list-group-item-heading">
         <c:if test="${d.enabled}"><em class="fui-time text-success" title="监控中"></em></c:if>
         <c:if test="${d.privateInstance}"><em class="fui-lock text-muted" title="私有实例"></em></c:if>
-        ${d.instanceName}
-        <small><a href="${d.monitorUrl}" target="_blank">${d.monitorUrl}</a></small>
+       	 [${d.instanceType}] ${d.instanceName}
+        
+         <c:if test="${d.instanceType eq URL}">
+           <small><a href="${d.monitorUrl}" target="_blank">${d.monitorUrl}</a></small>
+        </c:if>
+        
+        <c:if test="${d.instanceType eq DATABASE}">
+           <small><a>${d.sqlurl}</a></small>
+        </c:if>
+        
+        <c:if test="${d.instanceType eq FTP}">
+           <small><a>${d.ftpurl}</a></small>
+        </c:if>
     </h4>
 
     <div class="list-group-item-text text-muted">
         频率: <span class="text-info">${d.frequency.seconds}s</span>&nbsp;
         最大连接时间: <span class="text-info">${d.maxConnectionSeconds}s</span>&nbsp;
-        请求方式: <span class="text-info">${d.requestMethod}</span>&nbsp;
         连续失败次数: <span class="text-info">${d.continueFailedTimes}</span>&nbsp;
         <c:if test="${not empty d.contentType}">ContentType: <span class="text-info">${d.contentType}</span></c:if>
         <br/>

@@ -3,6 +3,7 @@ package net.iegreen.service.impl;
 import net.iegreen.domain.application.ApplicationInstance;
 import net.iegreen.domain.application.ApplicationInstanceRepository;
 import net.iegreen.domain.application.DatabaseType;
+import net.iegreen.domain.application.InstanceType;
 import net.iegreen.domain.dto.application.ApplicationInstanceFormDto;
 import net.iegreen.domain.dto.application.ApplicationInstanceListDto;
 import net.iegreen.domain.dto.application.InstanceStatisticsDto;
@@ -13,6 +14,7 @@ import net.iegreen.service.operation.job.DatabaseHeartBeatExecutor;
 import net.iegreen.service.operation.job.PerHeartBeatExecutor;
 import net.iegreen.service.operation.job.PerHeartBeatExecutorTemplate;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -23,7 +25,8 @@ import org.springframework.stereotype.Service;
 @Service("applicationInstanceService")
 public class ApplicationInstanceServiceImpl implements ApplicationInstanceService {
 
-	 private  ApplicationInstanceRepository instanceRepository = BeanProvider.getBean(ApplicationInstanceRepository.class);
+	@Autowired
+	private ApplicationInstanceRepository repository;
 
     @Override
     public void loadApplicationInstanceListDto(ApplicationInstanceListDto listDto) {
@@ -56,10 +59,10 @@ public class ApplicationInstanceServiceImpl implements ApplicationInstanceServic
      */
     @Override
     public void executePerHeartBeatByInstanceGuid(String instanceGuid) {
-    	final ApplicationInstance instance = instanceRepository.findByGuid(instanceGuid, ApplicationInstance.class);
+    	final ApplicationInstance instance = repository.findByGuid(instanceGuid, ApplicationInstance.class);
     	  
     	PerHeartBeatExecutorTemplate perHeartBeatExecutor = new PerHeartBeatExecutor(instanceGuid);
-    	if(instance.databaseType()==DatabaseType.MYSQL ){
+    	if(instance.instanceType().equals(InstanceType.DATABASE) ){
     		perHeartBeatExecutor = new DatabaseHeartBeatExecutor(instanceGuid);
     	}
         perHeartBeatExecutor.execute();

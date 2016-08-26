@@ -6,6 +6,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+   <c:set var="URL" value="<%=net.iegreen.domain.application.InstanceType.URL%>"/>
+    <c:set var="DATABASE" value="<%=net.iegreen.domain.application.InstanceType.DATABASE%>"/>
+   <c:set var="FTP" value="<%=net.iegreen.domain.application.InstanceType.FTP%>"/>
+  
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -31,8 +35,20 @@
             <li class="list-group-item">
                 <spring:message code="monitoring.instance.jsp.monitor.url" text="Monitor URL"/>: <a
                     href="${instanceDto.monitorUrl}"
-                    target="_blank">${instanceDto.monitorUrl}</a> <span
-                    class="text-info">[${instanceDto.requestMethod}]</span>
+                    target="_blank">${instanceDto.monitorUrl}</a> 
+                    
+                      <c:if test="${instanceDto.instanceType eq URL}">
+				           <a href="${instanceDto.monitorUrl}" target="_blank">${instanceDto.monitorUrl}</a>
+				        </c:if>
+				        
+				        <c:if test="${instanceDto.instanceType eq DATABASE}">
+				          <a>${instanceDto.sqlurl}</a>
+				        </c:if>
+				        
+				        <c:if test="${instanceDto.instanceType eq FTP}">
+				          <a>${instanceDto.ftpurl}</a>
+				        </c:if>
+                    
             </li>
             <c:if test="${not empty instanceDto.contentType}">
                 <li class="list-group-item">
@@ -102,7 +118,7 @@
                 var option0 = {
                     title: {
                         text: '${instanceDto.instanceName}',
-                        subtext: '<spring:message code="monitoring.instance.jsp.frequency" text="Frequency"/>: ${instanceDto.frequency.seconds}s  <spring:message code="monitoring.instance.jsp.max.conn2" text="Max-Conn"/>: ${instanceDto.maxConnectionSeconds}s <spring:message code="monitoring.instance.jsp.request.method" text="Request-Method"/>: ${instanceDto.requestMethod}'
+                        subtext: '<spring:message code="monitoring.instance.jsp.frequency" text="Frequency"/>: ${instanceDto.frequency.seconds}s  <spring:message code="monitoring.instance.jsp.max.conn2" text="Max-Conn"/>: ${instanceDto.maxConnectionSeconds}s'
                     },
                     tooltip: {
                         trigger: 'axis'

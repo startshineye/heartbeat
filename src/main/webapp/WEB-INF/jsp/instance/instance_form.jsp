@@ -101,7 +101,7 @@ $().ready(function() {
 						<div class="form-group">
 							<label for="password" class="col-sm-2 control-label">数据库密码</label>
 							<div class="col-sm-8">
-								<form:input path="password" id="password"
+								<form:password path="password" id="password"
 									cssClass="form-control" placeholder="" maxlength="255"
 									required="true" />
 								<p class="help-block"></p>
@@ -113,9 +113,9 @@ $().ready(function() {
 							<label for="testsql" class="col-sm-2 control-label">测试sql</label>
 							<div class="col-sm-8">
 								<form:input path="testsql" id="testsql"
-									cssClass="form-control" placeholder="select 1 from dual"
+									cssClass="form-control" placeholder="select now()"
 									maxlength="255" required="true" />
-								<p class="help-block">用来测试数据库是否正常的sql语句</p>
+								<p class="help-block">用来测试数据库是否正常的sql语句 mysql:select now()</p>
 								<form:errors path="testsql" cssClass="text-danger" />
 							</div>
 						</div>

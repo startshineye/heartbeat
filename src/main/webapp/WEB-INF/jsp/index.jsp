@@ -6,10 +6,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+ <c:set var="URL" value="<%=net.iegreen.domain.application.InstanceType.URL%>"/>
+ <c:set var="DATABASE" value="<%=net.iegreen.domain.application.InstanceType.DATABASE%>"/>
+ <c:set var="FTP" value="<%=net.iegreen.domain.application.InstanceType.FTP%>"/>
+  
 <!DOCTYPE HTML>
 <html>
 <head>
-    <title>11111111111111111<spring:message code="index.jsp.title" text="Monitoring"/></title>
+    <title><spring:message code="index.jsp.title" text="Monitoring"/></title>
     <c:set var="contextPath" value="${pageContext.request.contextPath}" scope="application"/>
 </head>
 <body>
@@ -71,9 +75,21 @@
                 <h4><c:if test="${ins.enabled}"><em class="fui-time text-success" title="监控中"></em></c:if>
                     <c:if test="${ins.privateInstance}"><em class="fui-lock text-muted" title="私有实例"></em></c:if>
                     <a href="${contextPath}/monitoring/${ins.guid}.hb">${ins.instanceName}</a>
-                    <small><a href="${ins.monitorUrl}" target="_blank" class="text-muted">${ins.monitorUrl}</a>
-                        [${ins.requestMethod}]
-                    </small>
+                   
+                    <c:if test="${ins.instanceType eq URL}">
+			            <small><a href="${ins.monitorUrl}" target="_blank" class="text-muted">${ins.monitorUrl}</a> </small>
+			        </c:if>
+			        
+			        <c:if test="${ins.instanceType eq DATABASE}">
+			                 <small><a >${ins.sqlurl}</a> </small>
+			    
+			        </c:if>
+			        
+			        <c:if test="${ins.instanceType eq FTP}">
+			              <small><a >${ins.ftpurl}</a> </small>
+			        </c:if>
+                   
+                   
                 </h4>
 
                 <div id="chart${s.index}" style="height:300px"></div>
@@ -100,7 +116,7 @@
                     var option${s.index} = {
                         title: {
                             text: '${ins.instanceName}',
-                            subtext: '<spring:message code="index.jsp.frequency" text="Frequency"/>: ${ins.frequency.seconds}s  <spring:message code="index.jsp.max.conn" text="Max-Conn"/>: ${ins.maxConnectionSeconds}s <spring:message code="index.jsp.request.method" text="Request-Method"/>: ${ins.requestMethod}'
+                            subtext: '<spring:message code="index.jsp.frequency" text="Frequency"/>: ${ins.frequency.seconds}s  <spring:message code="index.jsp.max.conn" text="Max-Conn"/>: ${ins.maxConnectionSeconds}s '
                         },
                         tooltip: {
                             trigger: 'axis'

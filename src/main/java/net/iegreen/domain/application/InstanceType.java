@@ -15,6 +15,8 @@ public enum InstanceType {
 	    public String getValue() {
 	        return name();
 	    }
-
+	    public String getStatus() {
+	        return label;
+	    }
 	   
 }
