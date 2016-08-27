@@ -6,7 +6,7 @@ import net.iegreen.domain.log.FrequencyMonitorLog;
 /**
  * @author Shengzhao Li
  */
-public class PerHeartBeatExecutor extends PerHeartBeatExecutorTemplate{
+public class PerHeartBeatExecutor extends PerHeartBeatExecutorTemplate {
 
 	public PerHeartBeatExecutor(String instanceGuid) {
 		super(instanceGuid);
@@ -14,8 +14,8 @@ public class PerHeartBeatExecutor extends PerHeartBeatExecutorTemplate{
 
 	@Override
 	public FrequencyMonitorLog generateMonitorLog(ApplicationInstance instance) {
-		 FrequencyMonitorLogGenerator monitorLogGenerator = new FrequencyMonitorLogGenerator(instance);
-	        return monitorLogGenerator.generate();
+		FrequencyMonitorLogGenerator monitorLogGenerator = new FrequencyMonitorLogGenerator(instance);
+		return monitorLogGenerator.generate();
 	}
-   
+
 }

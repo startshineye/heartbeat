@@ -73,7 +73,7 @@ public class ApplicationInstanceDto extends AbstractDto {
     protected boolean privateInstance;
 
     protected int continueFailedTimes = 2;
-    
+    /**实例类型增加两种*/
     protected DatabaseType databaseType = DatabaseType.MYSQL;
     
     protected InstanceType instanceType = InstanceType.URL;

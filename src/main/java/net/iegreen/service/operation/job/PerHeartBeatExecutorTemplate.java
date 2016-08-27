@@ -8,8 +8,9 @@ import net.iegreen.domain.shared.BeanProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * @author Shengzhao Li
+/***
+ * @author pzy
+ *
  */
 public abstract class PerHeartBeatExecutorTemplate {
 

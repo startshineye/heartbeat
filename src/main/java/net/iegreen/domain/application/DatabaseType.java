@@ -1,5 +1,9 @@
 package net.iegreen.domain.application;
-
+/***
+ * 
+ * @author pzy
+ *
+ */
 public enum DatabaseType {
 		
 		MYSQL("MYSQL","com.mysql.jdbc.Driver"),
